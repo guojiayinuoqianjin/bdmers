@@ -1,2 +1,2 @@
-# taobaoke
-淘宝客+京粉对接
+# BDMER
+tabaoke = 淘宝客+京粉对接

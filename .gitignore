@@ -1,0 +1,5 @@
+/.idea/
+/eureka/.mvn/
+*.iml
+*mvnw*
+*prod.properties
