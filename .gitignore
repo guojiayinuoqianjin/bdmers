@@ -1,5 +1,6 @@
 /.idea/
-/eureka/.mvn/
-*.iml
+*.mvn/
 *mvnw*
 *prod.properties
+*/target/
+/master/target/
