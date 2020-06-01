@@ -3,10 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>bdmers</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
 
+    <groupId>com.bdmer.framework</groupId>
+    <artifactId>common-dependencies</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>common-dependencies</name>
+    <description>框架包依赖</description>
+    <url>http://www.bdmer.com</url>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -15,20 +19,33 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <modules>
+        <module>base</module>
+    </modules>
+
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-cloud.version>Dalston.SR4</spring-cloud.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <!-- 框架组件版本 -->
+        <bdmer.framework.version>${project.version}</bdmer.framework.version>
+        <!--base组件的版本-->
+        <bdmer.framework.base.version>${project.version}</bdmer.framework.base.version>
     </properties>
-
-    <!--所有子模块-->
-    <modules>
-        <module>master</module>
-        <module>tbk</module>
-        <!--<module>tbk</module>-->
-    </modules>
 
     <dependencyManagement>
         <dependencies>
+            <!--base组件-->
+            <dependency>
+                <groupId>com.bdmer.framework</groupId>
+                <artifactId>base</artifactId>
+                <version>${bdmer.framework.base.version}</version>
+            </dependency>
+
+            <!--外部组件-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -60,15 +77,13 @@
                 <artifactId>fastjson</artifactId>
                 <version>1.2.60</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.1</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>
