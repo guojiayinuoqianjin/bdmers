@@ -41,9 +41,9 @@ public class MethodTrackAspect {
      * 待跟踪方法的切点,整个项目（除了aop与config文件夹）
      * 同时不需要跟踪@Aspect、@Configuration
      */
-    private static final String POINT_CUT = "execution(* .*.*(..)) " +
-            "&& !execution(* .*.aop.*.*(..))" +
-            "&& !execution(* .*.config.*.*(..))" +
+    private static final String POINT_CUT = "execution(* com..*(..)) " +
+            "&& !execution(* com.*.aop.*.*(..))" +
+            "&& !execution(* com.*.config.*.*(..))" +
             "&& !@within(org.aspectj.lang.annotation.Aspect) " +
             "&& !@annotation(org.aspectj.lang.annotation.Aspect) " +
             "&& !@within(org.springframework.context.annotation.Configuration) " +

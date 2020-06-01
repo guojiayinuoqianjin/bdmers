@@ -24,7 +24,7 @@ public class WebLoggerAspect {
     /**
      * 切面点，所有controller函数
      */
-    private static final String POINT_CUT = "execution(* .*.controller..*(..))";
+    private static final String POINT_CUT = "execution(* com..*.controller..*(..))";
 
     /**
      * 方法调用前

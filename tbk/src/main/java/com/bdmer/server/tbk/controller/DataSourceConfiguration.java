@@ -1,4 +1,4 @@
-package com.bdmer.framework.base.base.config;
+package com.bdmer.server.tbk.controller;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -18,8 +18,7 @@ import javax.sql.DataSource;
 /**
  * 主库数据源配置（非切库组件）
  * 本类用于设置非切库访问DB时的关联配置
- * 其中com.differ.jackyun.qc.core.dao.base是指非切库DAO类的存放包路径;
- * spring.base.datasource是指application.properties文件里的数据源连接配置。
+ * spring.datasource是指application.properties文件里的数据源连接配置。
  * classpath:/mapper/base/*Mapper.xml是指非切库DAO类对应的Mapper配置扫描路径。
  *
  * @author 龚德浪
@@ -27,7 +26,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = {"*.dao"}, sqlSessionFactoryRef = "sqlSessionFactory")
+@MapperScan(basePackages = {"com.bdmer.server.tbk.dao"}, sqlSessionFactoryRef = "sqlSessionFactory")
 public class DataSourceConfiguration {
 
     /**
@@ -36,9 +35,7 @@ public class DataSourceConfiguration {
      *
      * @return 数据源对象
      */
-    @Bean(name = "dataSource")
-    @ConfigurationProperties(prefix = "spring.datasource")
-    @RefreshScope
+    @Bean
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
