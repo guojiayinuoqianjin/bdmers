@@ -1,7 +1,7 @@
 package com.bdmer.framework.base.dao;
 
 import com.bdmer.framework.base.base.config.ServiceException;
-import com.bdmer.framework.base.cmomon.enums.CommonResponseCodesEnum;
+import com.bdmer.framework.base.common.enums.CommonResponseCodesEnum;
 import com.bdmer.framework.base.dto.PageInfo;
 import org.apache.ibatis.annotations.Param;
 

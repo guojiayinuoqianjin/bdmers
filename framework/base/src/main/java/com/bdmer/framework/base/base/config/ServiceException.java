@@ -1,7 +1,7 @@
 package com.bdmer.framework.base.base.config;
 
 
-import com.bdmer.framework.base.cmomon.enums.ResponseCode;
+import com.bdmer.framework.base.common.enums.ResponseCode;
 import com.bdmer.framework.base.dto.R;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

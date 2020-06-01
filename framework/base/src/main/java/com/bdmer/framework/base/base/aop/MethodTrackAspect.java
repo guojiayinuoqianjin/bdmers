@@ -1,8 +1,8 @@
 package com.bdmer.framework.base.base.aop;
 
 import com.alibaba.fastjson.JSON;
-import com.bdmer.framework.base.cmomon.constant.BaseConstant;
-import com.bdmer.framework.base.cmomon.util.Util;
+import com.bdmer.framework.base.common.constant.BaseConstant;
+import com.bdmer.framework.base.common.util.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;

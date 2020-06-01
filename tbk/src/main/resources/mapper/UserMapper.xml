@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdmer.server.tbk.dao.UserDao">
+
+    <!-- 所有列 -->
+    <sql id="allColumn">
+        id,name,gmt_create,gmt_modified
+    </sql>
+
+    <!-- 批量新增 -->
+    <insert id="batchAdd" parameterType="Object" >
+        insert into b_tbk_user
+        (id,name)
+        values
+        <foreach collection="entityList" index="index" item="item" separator=",">
+            (#{item.id},#{item.name})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="Object">
+        <foreach collection="entityList" separator=";" item="item">
+            update b_tbk_user set
+            <trim  suffixOverrides="," >
+                <if test="item.name != null">
+                  name=#{item.name},
+                </if>
+            </trim>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 批量删除 -->
+    <delete id="batchDelete" parameterType="Object">
+        delete from b_tbk_user
+        where id in
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!-- 批量查询 -->
+    <select id="list" resultType="com.bdmer.server.tbk.entity.UserEntity">
+        select
+        <include refid="allColumn" />
+        from b_tbk_user
+        where id in
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!-- 批量条件查询 -->
+    <select id="listByFilter" resultType="com.bdmer.server.tbk.entity.UserEntity">
+        select
+        <!-- 按需获取字段 -->
+        <choose>
+            <when test="filter.cols != null and filter.cols.length > 0">
+                <include refid="needColumn"/>
+            </when>
+            <otherwise>
+                <include refid="allColumn"/>
+            </otherwise>
+        </choose>
+        from b_tbk_user
+        where
+        <!--是否需要逻辑删除的信息-->
+        <choose>
+            <when test="filter.withDeleted != null and filter.withDeleted == true">
+                1 = 1
+            </when>
+            <otherwise>
+                is_deleted = 0
+            </otherwise>
+        </choose>
+        <!--查询条件-->
+        <include refid="mainFilter"/>
+        <!--排序条件 - 比较复杂，能不要就不要-->
+        <include refid="orderBy" />
+        <!--分页信息 -->
+        <choose>
+            <when test="filter.offset != null and filter.pageSize != null">
+                limit #{filter.offset},#{filter.pageSize}
+            </when>
+             <otherwise>
+                limit 0,10000
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 批量条件统计 -->
+    <select id="countByFilter" resultType="Integer">
+        select
+        count(*)
+        from b_tbk_user
+        where
+        <!--是否需要逻辑删除的信息-->
+        <choose>
+            <when test="filter.withDeleted != null and filter.withDeleted == true">
+                1 = 1
+            </when>
+            <otherwise>
+                is_deleted = 0
+            </otherwise>
+        </choose>
+        <!--查询条件-->
+        <include refid="mainFilter"/>
+    </select>
+
+    <!-- 按需获取字段 - 判断 -->
+    <sql id="needColumn">
+        <trim suffixOverrides=",">
+            <foreach collection="filter.cols" item="item">
+                <include refid="entityColumnToSQL"/>
+            </foreach>
+        </trim>
+    </sql>
+
+    <!-- 排序条件 -->
+    <sql id="orderBy">
+        <if test="filter.sortFields != null and filter.sortFields.length > 0">
+            order by
+            <trim suffixOverrides=",">
+                <foreach collection="filter.sortFields" item="item" separator=",">
+                    <include refid="entityColumnToSQL"/>
+                </foreach>
+            </trim>
+            <choose>
+                <when test="filter.sortOrder == 'DESC'.toString()">
+                    DESC
+                </when>
+                <otherwise>
+                    ASC
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <!--Entity字段转SQL字段-->
+    <sql id="entityColumnToSQL">
+        <choose>
+            <when test="item == 'id'.toString()">
+                id,
+            </when>
+            <when test="item == 'name'.toString()">
+                name,
+            </when>
+            <when test="item == 'gmtCreate'.toString()">
+                gmt_create,
+            </when>
+            <when test="item == 'gmtModified'.toString()">
+                gmt_modified,
+            </when>
+        </choose>
+    </sql>
+
+    <!-- 主页面过滤条件 -->
+    <sql id="mainFilter">
+        <!-- 查询条件 -->
+        <if test="filter.id != null">
+            and id = #{filter.id}
+        </if>
+        <if test="filter.ids != null and filter.ids.length > 0">
+            and id in 
+            <foreach collection="filter.ids" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="filter.name != null">
+            and name like concat(#{filter.name}, "%")
+        </if>
+        <if test="filter.gmtCreateBegin != null">
+            and gmt_create <![CDATA[ >= ]]> #{filter.gmtCreateBegin}
+        </if>
+        <if test="filter.gmtCreateEnd != null">
+            and gmt_create <![CDATA[ <= ]]> #{filter.gmtCreateEnd}
+        </if>
+    </sql>
+
+    <!-- 主页面查询 -->
+    <select id="listMain" resultType="com.bdmer.server.tbk.dto.UserResultDTO">
+        select
+        <!-- 按需获取字段 -->
+        <choose>
+            <when test="filter.cols != null and filter.cols.length > 0">
+                <include refid="needColumn"/>
+            </when>
+            <otherwise>
+                <include refid="allColumn"/>
+            </otherwise>
+        </choose>
+        from b_tbk_user
+        where 1 = 1
+        <include refid="mainFilter"/>
+        limit #{pageInfo.offset},#{pageInfo.pageSize}
+    </select>
+
+    <!-- 主页面查询count -->
+    <select id="listCount" resultType="Integer">
+        select
+        count(*)
+        from b_tbk_user
+        where 1 = 1
+        <include refid="mainFilter"/>
+    </select>
+
+   <!-- 统计不同字段的数量 -->
+   <select id="listFieldCount" resultType="HashMap">
+       select
+           <choose>
+               <when test="field == 'id'.toString()">
+                   id
+               </when>
+               <otherwise>
+                   id
+               </otherwise>
+           </choose>
+           ,
+           count(*) as count
+       from b_tbk_user
+       where 1 = 1
+       group by
+       <choose>
+           <when test="field == 'id'.toString()">
+               id
+           </when>
+           <otherwise>
+               id
+           </otherwise>
+       </choose>
+   </select>
+
+</mapper>

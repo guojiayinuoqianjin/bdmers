@@ -2,10 +2,10 @@ package com.bdmer.framework.base.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.bdmer.framework.base.base.config.ServiceException;
-import com.bdmer.framework.base.cmomon.enums.CommonResponseCodesEnum;
-import com.bdmer.framework.base.cmomon.util.LogUtils;
-import com.bdmer.framework.base.cmomon.util.ReflectionUtil;
-import com.bdmer.framework.base.cmomon.util.Util;
+import com.bdmer.framework.base.common.enums.CommonResponseCodesEnum;
+import com.bdmer.framework.base.common.util.LogUtils;
+import com.bdmer.framework.base.common.util.ReflectionUtil;
+import com.bdmer.framework.base.common.util.Util;
 import com.bdmer.framework.base.dto.CommonResponse;
 import com.bdmer.framework.base.dto.PageInfo;
 import com.bdmer.framework.base.dto.R;

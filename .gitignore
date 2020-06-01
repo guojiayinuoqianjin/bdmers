@@ -3,6 +3,6 @@
 *mvnw*
 *prod.properties
 */target/
-/master/target/
-/master/target/
-/tbk/target/
+*.class
+*.log
+/framework/base/target/classes/META-INF/base.kotlin_module

@@ -1,8 +1,8 @@
 package com.bdmer.framework.base.dto;
 
-import com.bdmer.framework.base.cmomon.enums.CommonResponseCodesEnum;
-import com.bdmer.framework.base.cmomon.enums.ResponseCode;
-import com.bdmer.framework.base.cmomon.util.Util;
+import com.bdmer.framework.base.common.enums.CommonResponseCodesEnum;
+import com.bdmer.framework.base.common.enums.ResponseCode;
+import com.bdmer.framework.base.common.util.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 

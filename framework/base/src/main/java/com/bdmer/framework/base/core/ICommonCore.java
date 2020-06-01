@@ -2,10 +2,10 @@ package com.bdmer.framework.base.core;
 
 
 import com.bdmer.framework.base.base.config.ServiceException;
-import com.bdmer.framework.base.cmomon.constant.MysqlConstant;
-import com.bdmer.framework.base.cmomon.enums.CommonResponseCodesEnum;
-import com.bdmer.framework.base.cmomon.util.LogUtils;
-import com.bdmer.framework.base.cmomon.util.Util;
+import com.bdmer.framework.base.common.constant.MysqlConstant;
+import com.bdmer.framework.base.common.enums.CommonResponseCodesEnum;
+import com.bdmer.framework.base.common.util.LogUtils;
+import com.bdmer.framework.base.common.util.Util;
 import com.bdmer.framework.base.dao.ICommonDao;
 import com.bdmer.framework.base.dto.PageInfo;
 import org.apache.commons.collections4.ListUtils;

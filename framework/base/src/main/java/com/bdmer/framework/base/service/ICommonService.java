@@ -1,11 +1,11 @@
 package com.bdmer.framework.base.service;
 
 import com.bdmer.framework.base.base.config.ServiceException;
-import com.bdmer.framework.base.cmomon.enums.CommonOperateEnum;
-import com.bdmer.framework.base.cmomon.enums.CommonResponseCodesEnum;
-import com.bdmer.framework.base.cmomon.util.LogUtils;
-import com.bdmer.framework.base.cmomon.util.ReflectionUtil;
-import com.bdmer.framework.base.cmomon.util.Util;
+import com.bdmer.framework.base.common.enums.CommonOperateEnum;
+import com.bdmer.framework.base.common.enums.CommonResponseCodesEnum;
+import com.bdmer.framework.base.common.util.LogUtils;
+import com.bdmer.framework.base.common.util.ReflectionUtil;
+import com.bdmer.framework.base.common.util.Util;
 import com.bdmer.framework.base.core.ICommonCore;
 import com.bdmer.framework.base.dto.CommonResponse;
 import com.bdmer.framework.base.dto.PageInfo;

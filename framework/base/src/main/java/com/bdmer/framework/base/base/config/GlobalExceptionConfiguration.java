@@ -1,7 +1,7 @@
 package com.bdmer.framework.base.base.config;
 
-import com.bdmer.framework.base.cmomon.enums.CommonResponseCodesEnum;
-import com.bdmer.framework.base.cmomon.util.Util;
+import com.bdmer.framework.base.common.enums.CommonResponseCodesEnum;
+import com.bdmer.framework.base.common.util.Util;
 import com.bdmer.framework.base.dto.CommonResponse;
 import com.bdmer.framework.base.dto.R;
 import lombok.extern.slf4j.Slf4j;
