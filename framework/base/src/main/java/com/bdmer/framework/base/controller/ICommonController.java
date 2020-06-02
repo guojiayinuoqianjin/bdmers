@@ -2,6 +2,7 @@ package com.bdmer.framework.base.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.bdmer.framework.base.base.config.ServiceException;
+import com.bdmer.framework.base.common.annotation.MethodTrackLog;
 import com.bdmer.framework.base.common.enums.CommonResponseCodesEnum;
 import com.bdmer.framework.base.common.util.LogUtils;
 import com.bdmer.framework.base.common.util.ReflectionUtil;
@@ -283,6 +284,7 @@ public interface ICommonController<F, D> {
      * @param pageInfo   分页信息
      * @return 主页面数据
      */
+    @MethodTrackLog
     @PostMapping(value = "/list")
     default CommonResponse<List> list(F filter, String filterJson, PageInfo pageInfo, String[] cols) {
         if (Util.isString(filterJson)) {

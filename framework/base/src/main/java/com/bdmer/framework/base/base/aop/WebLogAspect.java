@@ -39,7 +39,7 @@ public class WebLogAspect {
             // 获取调用信息的签名
             Signature signature = joinPoint.getSignature();
             String interfaceName = signature.getDeclaringTypeName() + "." + signature.getName();
-            log.debug("[WEB拦截器] 开始调用 - 接口 :{}, 参数：{}", interfaceName, JSON.toJSONString(objs));
+            log.info("[WEB拦截器] 开始调用 - 接口 :{}, 参数：{}", interfaceName, JSON.toJSONString(objs));
         } catch (Exception e) {
             log.error("[WEB拦截器] WebLoggerAspect - e:", e);
         }
@@ -57,7 +57,7 @@ public class WebLogAspect {
             Signature signature = joinPoint.getSignature();
             String interfaceName = signature.getDeclaringTypeName() + "." + signature.getName();
 
-            log.debug("[WEB拦截器] 结束调用 - 接口 :{}, 返回结果：{}", interfaceName, JSON.toJSONString(result));
+            log.info("[WEB拦截器] 结束调用 - 接口 :{}, 返回结果：{}", interfaceName, JSON.toJSONString(result));
         }catch (Exception e) {
             log.error("[WEB拦截器] WebLoggerAspect - e:", e);
         }
