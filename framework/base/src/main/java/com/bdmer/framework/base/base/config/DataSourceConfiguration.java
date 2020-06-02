@@ -1,4 +1,4 @@
-package com.bdmer.server.tbk.controller;
+package com.bdmer.framework.base.base.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -6,7 +6,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -26,7 +25,6 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = {"com.bdmer.server.tbk.dao"}, sqlSessionFactoryRef = "sqlSessionFactory")
 public class DataSourceConfiguration {
 
     /**
@@ -35,7 +33,8 @@ public class DataSourceConfiguration {
      *
      * @return 数据源对象
      */
-    @Bean
+    @Bean(name = "dataSource")
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
@@ -51,7 +50,7 @@ public class DataSourceConfiguration {
     public SqlSessionFactory baseSessionFactory(@Qualifier("dataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean f = new SqlSessionFactoryBean();
         f.setDataSource(dataSource);
-        f.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*/*Mapper.xml"));
+        f.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
         SqlSessionFactory factory = f.getObject();
 
         // 添加自定义的一些配置

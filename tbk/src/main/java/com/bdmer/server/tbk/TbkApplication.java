@@ -17,8 +17,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableFeignClients
 @Order(2)
 @EnableAsync
-@ComponentScan({"com.bdmer.framework.base", "com.bdmer.server.tbk"})
 @SpringBootApplication
+@ComponentScan(basePackages = {"com.bdmer.framework.base", "com.bdmer.server.tbk"})
+@MapperScan(basePackages = {"com.bdmer.server.tbk.dao"}, sqlSessionFactoryRef = "sqlSessionFactory")
 public class TbkApplication {
 
     public static void main(String[] args) {

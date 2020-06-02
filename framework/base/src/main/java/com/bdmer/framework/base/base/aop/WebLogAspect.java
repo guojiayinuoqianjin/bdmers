@@ -18,9 +18,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Aspect
-@Slf4j
 @Order(4)
-public class WebLoggerAspect {
+@Slf4j
+public class WebLogAspect {
     /**
      * 切面点，所有controller函数
      */

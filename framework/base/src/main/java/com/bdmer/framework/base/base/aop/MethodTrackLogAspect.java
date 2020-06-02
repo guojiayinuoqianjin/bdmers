@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -22,9 +23,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Aspect
-@Slf4j
 @Order(3)
-public class MethodTrackAspect {
+@Slf4j
+public class MethodTrackLogAspect {
 
     /**
      * 自定义配置名称，在配置变量env中使用，可获取其相应的值
@@ -32,23 +33,15 @@ public class MethodTrackAspect {
     private static final String CUSTOM_CONFIG_KEY = "log.track.switcher";
 
     /**
-     * 配置变量env，会根据配置服务的变化自动刷新配置值
+     * 配置变量env，会根据配置的变化自动刷新配置值
      */
     @Autowired
     private Environment env;
 
     /**
-     * 待跟踪方法的切点,整个项目（除了aop与config文件夹）
-     * 同时不需要跟踪@Aspect、@Configuration
+     * 只跟踪有MethodTrackLog注解的方法
      */
-    private static final String POINT_CUT = "execution(* com..*(..)) " +
-            "&& !execution(* com.*.aop.*.*(..))" +
-            "&& !execution(* com.*.config.*.*(..))" +
-            "&& !@within(org.aspectj.lang.annotation.Aspect) " +
-            "&& !@annotation(org.aspectj.lang.annotation.Aspect) " +
-            "&& !@within(org.springframework.context.annotation.Configuration) " +
-            "&& !@annotation(org.springframework.context.annotation.Configuration)";
-
+    private static final String POINT_CUT = "@annotation(com.bdmer.framework.base.common.annotation.MethodTrackLog)";
 
     /**
      * 方法调用前
